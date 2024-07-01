@@ -9,6 +9,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal'; // Importation du h
 import Modal from './Modal'; // Importation du composant Modal.
 import Heading from '../Heading';
 import Input from '../inputs/Input';
+import toast from 'react-hot-toast';
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal(); // Utilisation du hook personnalisé pour accéder à l'état et aux méthodes du modal d'inscription.
@@ -33,7 +34,7 @@ const RegisterModal = () => {
             registerModal.onClose(); // Fermeture du modal en cas de succès.
         })
         .catch((error) => {
-            console.log(error); // Affichage de l'erreur en cas d'échec.
+            toast.error("Il y'a eu une erreur dans l'un de vos champs. Veuillez réessayer.");
         })
         .finally(() => {
             setIsLoading(false); // Désactivation de l'indicateur de chargement.
