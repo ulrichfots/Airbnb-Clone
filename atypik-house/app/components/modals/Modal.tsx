@@ -180,6 +180,8 @@ secondaryActionLabel
                             label={actionLabel}
                             onClick={handleSubmit}/>
                         </div>
+
+                            {footer}    {/*pour afficher le footer de continuer avec google*/}
                         </div>
                     </div>
 

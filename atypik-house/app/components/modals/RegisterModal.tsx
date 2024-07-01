@@ -10,6 +10,8 @@ import Modal from './Modal'; // Importation du composant Modal.
 import Heading from '../Heading';
 import Input from '../inputs/Input';
 import toast from 'react-hot-toast';
+import Button from '../Button';
+import { FcGoogle } from 'react-icons/fc';
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal(); // Utilisation du hook personnalisé pour accéder à l'état et aux méthodes du modal d'inscription.
@@ -75,7 +77,51 @@ const RegisterModal = () => {
              required
              />
         </div>
-    )
+    );
+
+    const footerContent = (
+        <div className="flex flex-col gap-4 mt-3">
+            <hr />
+            <Button
+             outline
+             label="Continue avec Google"
+             icon={FcGoogle}
+             onClick={() => {}}
+            />
+
+            <Button
+             outline
+             label="Continue avec Github"
+             icon={AiFillGithub}
+             onClick={() => {}}
+            />
+            <div
+             className="
+             text-neutral-500
+             text-center
+             mt-4
+             font-light
+             "
+             >
+                <div className='justify-center flex flex-row items-center gap-2'>
+                    <div>
+                        Vous avez deja un compte ?
+                    </div>
+
+                    <div
+                    onClick={() => registerModal.onClose()}
+                     className='
+                    text-neutral-800
+                    cursor-pointer
+                    hover:underline
+                    '>
+                        Se connecter
+                    </div>
+
+                </div>
+             </div>
+        </div>
+    );
 
     // Rendu du composant Modal avec les propriétés nécessaires.
     return (
@@ -87,6 +133,7 @@ const RegisterModal = () => {
             onClose={registerModal.onClose} // Fonction de fermeture du modal.
             onSubmit={handleSubmit(onSubmit)} // Gestionnaire de soumission du formulaire.
             body={bodyContent}
+            footer={footerContent} // Contenu du bas du modal.
         />
     );
 }
