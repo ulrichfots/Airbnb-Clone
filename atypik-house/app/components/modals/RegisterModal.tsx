@@ -7,13 +7,15 @@ import { useCallback, useState } from 'react'; // Importation des hooks useCallb
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'; // Importation de react-hook-form pour la gestion des formulaires.
 import useRegisterModal from '@/app/hooks/useRegisterModal'; // Importation du hook personnalisé pour gérer l'état du modal d'inscription.
 import Modal from './Modal'; // Importation du composant Modal.
+import Heading from '../Heading';
+import Input from '../inputs/Input';
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal(); // Utilisation du hook personnalisé pour accéder à l'état et aux méthodes du modal d'inscription.
     const [isLoading, setIsLoading] = useState(false); // État local pour gérer l'indicateur de chargement.
 
     // Utilisation du hook useForm pour gérer les valeurs et les actions du formulaire.
-    const { register, handleSubmit } = useForm<FieldValues>({
+    const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
         defaultValues: {
             name: '', // Valeur par défaut pour le champ "name".
             email: '', // Valeur par défaut pour le champ "email".
@@ -38,6 +40,42 @@ const RegisterModal = () => {
         });
     }
 
+    const bodyContent = (
+        <div className="flex flex-col gap-4">
+            <Heading 
+            title= 'Bienvenue Chez Atypik-House'
+            subtitle= 'Créér un Compte!'
+            />
+            <Input
+             id="email"
+             label="Email"
+             disabled={isLoading}
+             register={register}
+             errors={errors}
+             required
+             />
+
+            <Input
+             id="name"
+             label="name"
+             disabled={isLoading}
+             register={register}
+             errors={errors}
+             required
+             />
+
+            <Input
+             id="password"
+             type="password"
+             label="password"
+             disabled={isLoading}
+             register={register}
+             errors={errors}
+             required
+             />
+        </div>
+    )
+
     // Rendu du composant Modal avec les propriétés nécessaires.
     return (
         <Modal
@@ -47,6 +85,7 @@ const RegisterModal = () => {
             actionLabel="Continue" // Libellé de l'action du bouton de soumission.
             onClose={registerModal.onClose} // Fonction de fermeture du modal.
             onSubmit={handleSubmit(onSubmit)} // Gestionnaire de soumission du formulaire.
+            body={bodyContent}
         />
     );
 }
